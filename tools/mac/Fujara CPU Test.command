@@ -2,11 +2,13 @@
 # Fujara CPU test for macOS (Apple silicon). Double-click to run.
 #
 # Run it twice:
-#   1st run: downloads the Open-XY SDK (pinned commit) and Fujara, fetches the
-#            SDK's pinned Blackfin tools, asks for your stock OP-XY OS 1.2.1
-#            os.ldr, builds a profiling test firmware, and shows how to install it.
+#   1st run: downloads the Open-XY SDK (pinned commit), Fujara and Daath, fetches
+#            the SDK's pinned Blackfin tools, asks for your stock OP-XY OS 1.2.1
+#            os.ldr, builds a profiling test firmware holding both machines (Daath
+#            keeps its engine number, so Daath projects still open), and shows
+#            how to install it.
 #   2nd run (after installing and restarting the OP-XY): runs the SDK's CPU
-#            benchmark three times over USB MIDI and shows the result.
+#            benchmark three times over USB MIDI and reports Fujara and Daath.
 #
 # Everything lives in ~/Library/Application Support/OPXY-SDK/. Your firmware
 # stays in its private/ folder and is never uploaded anywhere. This script
@@ -16,6 +18,7 @@
 SDK_REPO="https://github.com/etcetc000/open-xy"
 SDK_COMMIT="8d4bb49de8a2d72453f0ca247fecbb0aeb0daf27"
 FUJARA_REPO="https://github.com/SammiBabe666/Fujara-Flute-for-XY"
+DAATH_REPO="https://github.com/SammiBabe666/Daath-OP-XY-WitchHouse-engine"
 STOCK_SHA256="60358afdaa9b58ed40411602f6d5d4e1e3e02553ff2da7e25038e71dd002b52f"
 RUNS=3
 
@@ -24,6 +27,7 @@ SRC="$HOME_DIR/src"
 PRIVATE="$HOME_DIR/private"
 SDK="$SRC/open-xy"
 FUJARA="$SRC/Fujara-Flute-for-XY"
+DAATH="$SRC/Daath-OP-XY-WitchHouse-engine"
 VENV="$HOME_DIR/venv-fujara-cpu"
 STOCK="$PRIVATE/stock-1.2.1/os.ldr"
 PACKAGE="$PRIVATE/fujara-cpu-build"
@@ -104,9 +108,9 @@ fi
 
 # ================================================================= build
 if [ "$PHASE" = "build" ]; then
-    go=$(say_box "This builds a test firmware for your OP-XY that contains Fujara with CPU profiling switched on.
+    go=$(say_box "This builds a test firmware for your OP-XY with Fujara and Daath and CPU profiling switched on.
 
-While it is installed, your other custom machines (such as Daath) are not on the device. Save your work first; afterwards reinstall your usual firmware from the Open-XY builder. Do not open or save your projects while the test firmware is installed.
+Daath keeps its engine number, so Daath projects still open. Any other custom machines you use are not in the test firmware. Before installing, keep a copy of your current /os.ldr and /content/op1_factory.json from the device: copying them back is how you return to your usual firmware.
 
 It downloads about 150 MB and takes a few minutes." "Cancel" "Continue")
     [ "$go" = "Continue" ] || exit 0
@@ -127,6 +131,16 @@ It downloads about 150 MB and takes a few minutes." "Cancel" "Continue")
         fail "Could not update Fujara."
     git -C "$FUJARA" clean -fdxq
     echo "Fujara commit: $(git -C "$FUJARA" rev-parse HEAD)"
+
+    step "Daath (latest main)"
+    if [ ! -d "$DAATH/.git" ]; then
+        git clone "$DAATH_REPO" "$DAATH" || fail "Could not download Daath."
+    fi
+    git -C "$DAATH" fetch --quiet origin main || fail "Could not update Daath."
+    git -C "$DAATH" checkout --quiet --force main && git -C "$DAATH" reset --quiet --hard origin/main ||
+        fail "Could not update Daath."
+    git -C "$DAATH" clean -fdxq
+    echo "Daath commit: $(git -C "$DAATH" rev-parse HEAD)"
 
     step "Python environment"
     if [ ! -x "$VENV/bin/python" ]; then
@@ -156,7 +170,7 @@ It downloads about 150 MB and takes a few minutes." "Cancel" "Continue")
 
     step "Building the profiling firmware"
     rm -rf "$PACKAGE"
-    (cd "$SDK" && "$VENV/bin/python" sdk.py build --machine "$FUJARA" --profiling on \
+    (cd "$SDK" && "$VENV/bin/python" sdk.py build --machine "$FUJARA" --machine "$DAATH" --profiling on \
         --stock-os "$STOCK" --out "$PACKAGE") || fail "The firmware build failed."
     [ -f "$PACKAGE/candidate/os.ldr" ] || fail "The build finished without candidate/os.ldr."
 
@@ -169,7 +183,7 @@ To install (as in the SDK's docs/build.md, step 5):
 3. Copy, replacing the existing files:
    os.ldr  ->  the device's top folder  /os.ldr
    content/op1_factory.json  ->  /content/
-   content/display/fujara.svg  ->  /content/display/
+   content/display/fujara.svg and daath.svg  ->  /content/display/
 4. Press track 2 (exit), then track 5 (write os to boot partition). When it says firmware written ok, switch it off and on.
 
 Then connect the OP-XY by USB, let it start normally, and double-click this file again to measure." "OK" >/dev/null
@@ -182,7 +196,7 @@ go=$(say_box "Before measuring:
 - Playback is stopped and your work is saved. The test plays its own notes and changes temporary settings: do not touch the OP-XY while it runs, and do not save afterwards.
 - Quit apps that use the OP-XY's MIDI (DAWs, Field Kit, the Open-XY builder tab). Leave USB audio off.
 
-It runs $RUNS times, about 2 minutes each." "Cancel" "Start")
+It runs $RUNS times, a few minutes each (both machines are swept)." "Cancel" "Start")
 [ "$go" = "Start" ] || exit 0
 
 stamp=$(date +%Y%m%d-%H%M%S)
@@ -195,30 +209,34 @@ for n in $(seq 1 "$RUNS"); do
     captures+=(--capture "$out/capture.json")
 done
 
-step "Report"
-report="$PRIVATE/fujara-cpu-report-$stamp"
-(cd "$SDK" && "$VENV/bin/python" sdk.py profile report --package "$PACKAGE" --machine fujara \
-    "${captures[@]}" --out "$report") || fail "The report could not be made from the measurements."
-
-summary=$("$VENV/bin/python" - "$report/catalog-cpu.json" <<'EOF'
+step "Reports"
+cat > "$HOME_DIR/cpu_summary.py" <<'PYEOF'
 import json, sys
 cpu = json.load(open(sys.argv[1]))['cpu']
-worst = cpu.get('worst_setting', {})
-lines = ['Fujara used %.3f%% of the stock block budget at its heaviest setting.' % cpu['block_percent'],
-         'Recommended: at most 3.5%. ' + ('Within it.' if cpu['block_percent'] <= 3.5 else 'Above it.'),
-         'Midpoint run: %.3f%%.' % cpu['midpoint_percent'] if 'midpoint_percent' in cpu else '',
-         'Heaviest setting: %s.' % worst.get('label', '?') if worst else '',
-         'Runs: %d.' % cpu.get('runs', 0)]
-print('\n'.join(l for l in lines if l))
-EOF
-)
+name = sys.argv[2].capitalize()
+worst = cpu.get('worst_setting', {}).get('label', '?')
+verdict = 'within' if cpu['block_percent'] <= 3.5 else 'ABOVE'
+print('%s: %.3f%% at its heaviest setting (%s), %s the recommended 3.5%%. Midpoint run %.3f%%.'
+      % (name, cpu['block_percent'], worst, verdict, cpu.get('midpoint_percent', float('nan'))))
+PYEOF
+summary=""
+reports=""
+for machine in fujara daath; do
+    report="$PRIVATE/$machine-cpu-report-$stamp"
+    (cd "$SDK" && "$VENV/bin/python" sdk.py profile report --package "$PACKAGE" --machine "$machine" \
+        "${captures[@]}" --out "$report") || fail "The $machine report could not be made from the measurements."
+    line=$("$VENV/bin/python" "$HOME_DIR/cpu_summary.py" "$report/catalog-cpu.json" "$machine")
+    summary="$summary$line
+"
+    reports="$reports$report
+"
+    open "$report/report.md" 2>/dev/null
+done
 echo "$summary"
-open "$report/report.md" 2>/dev/null || open "$report"
 say_box "$summary
 
-The full report is open (report.md) and saved in:
-$report
+The reports are open (report.md) and saved in:
+$reports
+Send each report.md and catalog-cpu.json back to finish the audits. Keep the capture folders private (they can include your device's serial number).
 
-Send report.md and catalog-cpu.json back to finish Fujara's audit. Keep the capture folders private (they can include your device's serial number).
-
-Afterwards, restart the OP-XY without saving, and reinstall your usual firmware from the Open-XY builder." "OK" >/dev/null
+Afterwards, restart the OP-XY without saving, then return to your usual firmware: copy your saved os.ldr and op1_factory.json back the same way and write the OS again (or rebuild it in the Open-XY builder)." "OK" >/dev/null
