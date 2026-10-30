@@ -1,0 +1,51 @@
+name: Profiling module
+# Compiles Fujara and Daath with the SDK's pinned Blackfin tools and the CPU
+# profiling sweep on, and uploads the module: no firmware is used or produced.
+# tools/profiling/finish_package.py patches the owner's stock OS with it on
+# their own computer (docs: tools/profiling/README.md).
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  SDK_REF: 8d4bb49de8a2d72453f0ca247fecbb0aeb0daf27
+jobs:
+  module:
+    runs-on: windows-latest
+    steps:
+      - name: Keep line endings (source hashes must match other hosts)
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+        with:
+          path: fujara
+      - uses: actions/checkout@v4
+        with:
+          repository: SammiBabe666/Daath-OP-XY-WitchHouse-engine
+          path: daath
+      - uses: actions/checkout@v4
+        with:
+          repository: etcetc000/open-xy
+          ref: ${{ env.SDK_REF }}
+          path: sdk
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pinned Blackfin tools
+        working-directory: sdk
+        run: python sdk.py toolchain fetch
+      - name: Compile the profiling module
+        run: python fujara/tools/profiling/compile_module.py sdk "${{ runner.temp }}/profiling-module" fujara daath
+      - name: Record commits
+        shell: bash
+        run: |
+          {
+            echo "fujara $(git -C fujara rev-parse HEAD)"
+            echo "daath $(git -C daath rev-parse HEAD)"
+            echo "sdk $(git -C sdk rev-parse HEAD)"
+          } > "${{ runner.temp }}/profiling-module/commits.txt"
+          cat "${{ runner.temp }}/profiling-module/commits.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: profiling-module
+          path: ${{ runner.temp }}/profiling-module
+          retention-days: 14
