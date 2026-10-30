@@ -1,0 +1,347 @@
+
+Discarded input sections
+
+ .comment       0x0000000000000000       0x2a fujara/voice.o
+ .comment       0x0000000000000000       0x2a fujara/display.o
+ .comment       0x0000000000000000       0x2a fujara/screen.o
+ .comment       0x0000000000000000       0x2a fujara/registration.o
+ .comment       0x0000000000000000       0x2a sdk/memory.o
+ .comment       0x0000000000000000       0x2a sdk/registration.o
+ .comment       0x0000000000000000       0x2a sdk/registration_stock.o
+ .comment       0x0000000000000000       0x2a sdk/startup.o
+ .comment       0x0000000000000000       0x2a sdk/benchmark.o
+ .comment       0x0000000000000000       0x2a sdk/screen_order.o
+ .comment       0x0000000000000000       0x2a sdk/synth_controls.o
+ .comment       0x0000000000000000       0x2a sdk/synth_control_table.o
+ .comment       0x0000000000000000       0x2a sdk/note_activity.o
+ .comment       0x0000000000000000       0x2a sdk/project_companion.o
+ .comment       0x0000000000000000       0x2a sdk/project_companion_table.o
+ .comment       0x0000000000000000       0x2a sdk/lfo.o
+ .comment       0x0000000000000000       0x2a sdk/lfo_stock.o
+ .comment       0x0000000000000000       0x2a sdk/stock_browser.o
+ .comment       0x0000000000000000       0x2a sdk/presets.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+MODULE           0x000000008d2d0380 0x00000000001fc000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x000000008d2d0380                __extensions_reserved_start = ORIGIN (MODULE)
+                0x000000008d4cc380                __extensions_reserved_end = (ORIGIN (MODULE) + LENGTH (MODULE))
+                0x000000008d4cc380                __stock_effect_records = 0x8d4cc380
+                0x000000008d4ccf50                __stock_engine_records = 0x8d4ccf50
+                0x000000008d4cff50                __stock_screen_slots = 0x8d4cff50
+
+.text           0x000000008d2d0380     0xdf4c
+ *(.text .text.*)
+ .text          0x000000008d2d0380      0x7ec fujara/voice.o
+                0x000000008d2d0738                fujara_start
+                0x000000008d2d08a8                fujara_destroy
+                0x000000008d2d08b8                fujara_render
+                0x000000008d2d0b10                fujara_factory
+                0x000000008d2d0b4c                fujara_parameter_name
+ .text._ZN6fujara12_GLOBAL__N_17partialEPlmmlll
+                0x000000008d2d0b6c       0x3c fujara/voice.o
+ .text._ZN6fujara12_GLOBAL__N_114steady_partialEPlmmll
+                0x000000008d2d0ba8       0x34 fujara/voice.o
+ .text._ZN6fujara6renderERNS_5VoiceERNS_6SharedEmPlPKlPKm
+                0x000000008d2d0bdc      0x898 fujara/voice.o
+                0x000000008d2d0bdc                fujara::render(fujara::Voice&, fujara::Shared&, unsigned long, long*, long const*, unsigned long const*)
+ .text          0x000000008d2d1474      0x7f4 fujara/display.o
+                0x000000008d2d1474                fujara_display_reset
+                0x000000008d2d148c                fujara_display_render
+                0x000000008d2d1b74                fujara_display_validate
+ .text          0x000000008d2d1c68      0x824 fujara/screen.o
+                0x000000008d2d244c                fujara_screen_ctor
+ .text          0x000000008d2d248c       0x54 fujara/registration.o
+                0x000000008d2d248c                fujara_screen_register
+                0x000000008d2d24a0                fujara_register
+                0x000000008d2d24ac                fujara_record_ready
+                0x000000008d2d24bc                fujara_name_matches
+                0x000000008d2d24cc                fujara_ready
+ .text          0x000000008d2d24e0       0xa4 sdk/divide.o
+                0x000000008d2d24e0                __udivsi3
+                0x000000008d2d2532                __umodsi3
+                0x000000008d2d253e                __divsi3
+                0x000000008d2d2560                __modsi3
+ .text          0x000000008d2d2584       0x24 sdk/memory.o
+                0x000000008d2d2584                memset
+                0x000000008d2d2594                memcpy
+ .text          0x000000008d2d25a8      0x37c sdk/registration.o
+                0x000000008d2d2614                opxy::platform::registry::add(opxy::platform::registry::Registry const&, opxy::platform::registry::Pages const&, opxy::platform::Record const&)
+                0x000000008d2d2720                opxy::platform::registry::add_screen(opxy::platform::registry::Pages const&, opxy::platform::Record const&, opxy::platform::Screen const&)
+                0x000000008d2d27d4                opxy::platform::registry::ready(opxy::platform::registry::Registry const&, opxy::platform::registry::Pages const&, opxy::platform::Record const&, opxy::platform::Screen const*)
+                0x000000008d2d2870                opxy::platform::registry::known(opxy::platform::registry::Registry const&, opxy::platform::registry::StockString const*)
+                0x000000008d2d28a0                opxy::platform::registry::name_matches(opxy::platform::Record const&, opxy::platform::registry::StockString const*)
+ .text          0x000000008d2d2924       0xf0 sdk/registration_stock.o
+                0x000000008d2d2924                sdk_engine_bound
+                0x000000008d2d2978                sdk_register_engine
+                0x000000008d2d2990                sdk_register_effect
+                0x000000008d2d29a8                sdk_register_screen
+                0x000000008d2d29b8                sdk_engine_ready
+                0x000000008d2d29dc                sdk_effect_ready
+                0x000000008d2d2a00                sdk_stock_engine_known
+                0x000000008d2d2a10                sdk_name_matches
+ .text          0x000000008d2d2a14       0xe0 sdk/startup.o
+                0x000000008d2d2a14                kit_absent
+                0x000000008d2d2a18                sdk_startup_synth
+                0x000000008d2d2a34                sdk_startup_screen
+                0x000000008d2d2a50                extensions_catalog_checked
+                0x000000008d2d2a9c                sdk_screen_owned
+                0x000000008d2d2ac4                sdk_engine_installed
+ .text          0x000000008d2d2af4       0x24 sdk/startup_exit.o
+                0x000000008d2d2af4                extensions_synth_exit
+                0x000000008d2d2b08                extensions_screen_exit
+ .text          0x000000008d2d2b18        0x0 sdk/startup_label.o
+ .text.kit_startup_label
+                0x000000008d2d2b18       0x1c sdk/startup_label.o
+                0x000000008d2d2b18                kit_startup_label
+ .text          0x000000008d2d2b34      0x378 sdk/benchmark.o
+                0x000000008d2d2b34                opxy::benchmark::allocate(unsigned long)
+                0x000000008d2d2ba0                opxy::benchmark::release(void*)
+                0x000000008d2d2bac                sdk_benchmark_run
+ .text          0x000000008d2d2eac        0x4 sdk/benchmark_clock.o
+                0x000000008d2d2eac                sdk_benchmark_cycles
+ .text          0x000000008d2d2eb0       0x10 sdk/voice_clock.o
+                0x000000008d2d2eb0                sdk_voice_ticks
+ .text          0x000000008d2d2ec0       0xa0 sdk/hook.o
+                0x000000008d2d2ec0                sdk_hook_save
+                0x000000008d2d2f18                sdk_hook_restore
+ .text          0x000000008d2d2f60      0x148 sdk/screen_order.o
+                0x000000008d2d2f60                sdk_screen_next
+                0x000000008d2d306c                sdk_screen_activation
+ .text          0x000000008d2d30a8       0x48 sdk/screen_hooks.o
+                0x000000008d2d30a8                sdk_screen_advance
+                0x000000008d2d30d0                sdk_fx_value
+ .text          0x000000008d2d30f0      0x8e8 sdk/synth_controls.o
+                0x000000008d2d3270                sdk_synth_shown
+                0x000000008d2d32ac                sdk_synth_title_slot
+                0x000000008d2d32e8                sdk_synth_title
+                0x000000008d2d3328                sdk_synth_press
+                0x000000008d2d3404                sdk_param_steps
+                0x000000008d2d34fc                sdk_synth_turn
+                0x000000008d2d359c                sdk_effect_turn
+                0x000000008d2d361c                sdk_fx_value_text
+                0x000000008d2d3700                sdk_fx_title
+                0x000000008d2d3750                sdk_synth_value
+                0x000000008d2d3780                sdk_send_refresh
+                0x000000008d2d3828                opxy::platform::control_tenths(char*, unsigned long, char const*)
+                0x000000008d2d390c                opxy::platform::control_division(char*, long)
+                0x000000008d2d3950                opxy::platform::control_choice(long, unsigned long)
+                0x000000008d2d3960                opxy::platform::control_label(char*, long, char const* const*, unsigned long)
+                0x000000008d2d3994                opxy::platform::control_ratio(long, unsigned long const*, unsigned long)
+ .text          0x000000008d2d39d8       0x58 sdk/synth_control_table.o
+ .text          0x000000008d2d3a30       0xb8 sdk/note_activity.o
+                0x000000008d2d3a30                sdk_note_off
+                0x000000008d2d3a98                sdk_display_note_activity
+ .text          0x000000008d2d3ae8     0x9e74 sdk/project_companion.o
+                0x000000008d2dd208                sdk_project_save
+                0x000000008d2dd80c                sdk_project_load
+ .text          0x000000008d2dd95c        0x0 sdk/project_companion_table.o
+ .text          0x000000008d2dd95c       0x78 sdk/profiling.o
+                0x000000008d2dd95c                sdk_profile_voice_start
+                0x000000008d2dd966                sdk_profile_osc_start
+                0x000000008d2dd970                sdk_profile_osc_end
+                0x000000008d2dd980                sdk_profile_filter_start
+                0x000000008d2dd98a                sdk_profile_filter_end
+                0x000000008d2dd998                sdk_profile_voice_end
+                0x000000008d2dd9a6                sdk_profile_alt_voice_start
+                0x000000008d2dd9b0                sdk_profile_alt_osc_start
+                0x000000008d2dd9ba                sdk_profile_alt_osc_end
+                0x000000008d2dd9c8                sdk_profile_alt_voice_end
+ .text          0x000000008d2dd9d4      0x3dc sdk/lfo.o
+                0x000000008d2ddb30                sdk_lfo_range
+                0x000000008d2ddb60                sdk_lfo_icon_slide
+                0x000000008d2ddbb8                sdk_lfo_icon_slot
+                0x000000008d2ddbcc                sdk_lfo_label
+                0x000000008d2ddc1c                sdk_lfo_cycle
+                0x000000008d2ddc88                sdk_lfo_element_label
+                0x000000008d2ddccc                sdk_lfo_step
+                0x000000008d2ddd58                sdk_lfo_modulate
+ .text          0x000000008d2dddb0       0xb0 sdk/lfo_stock.o
+                0x000000008d2dddb0                opxy::platform::lfo::gui_engine(unsigned long)
+                0x000000008d2dddbc                opxy::platform::lfo::audio_engine(unsigned long)
+                0x000000008d2dddcc                opxy::platform::lfo::type(unsigned long)
+                0x000000008d2dddd8                opxy::platform::lfo::selected_track()
+                0x000000008d2ddde4                opxy::platform::lfo::animate(unsigned long, unsigned long, long, unsigned long)
+                0x000000008d2dddf0                opxy::platform::lfo::name(unsigned long, unsigned long, unsigned long)
+                0x000000008d2dddfc                opxy::platform::lfo::show(unsigned long)
+                0x000000008d2dde0c                opxy::platform::lfo::group_value(unsigned long)
+                0x000000008d2dde24                opxy::platform::lfo::step(unsigned long, unsigned long, long, long const*)
+                0x000000008d2dde30                opxy::platform::lfo::value(unsigned long, unsigned long, unsigned long)
+                0x000000008d2dde3c                opxy::platform::lfo::publish(unsigned long, unsigned long, unsigned long, long)
+                0x000000008d2dde48                opxy::platform::lfo::modulation_slot(unsigned long)
+                0x000000008d2dde54                opxy::platform::lfo::modulate(unsigned long, unsigned long, unsigned long, long)
+ .text          0x000000008d2dde60       0xc0 sdk/lfo_hooks.o
+                0x000000008d2dde60                sdk_lfo_audio
+                0x000000008d2dde78                sdk_lfo_element_icon
+                0x000000008d2dde9c                sdk_lfo_random_icon
+                0x000000008d2ddec0                sdk_lfo_value_icon
+                0x000000008d2ddee4                sdk_lfo_element_name
+                0x000000008d2ddefc                sdk_lfo_element_initial_icon
+ .text          0x000000008d2ddf20      0x350 sdk/stock_browser.o
+                0x000000008d2de090                opxy::platform::stock_browser::detail::open(opxy::platform::stock_browser::detail::Session&, opxy::platform::stock_browser::detail::Row*, unsigned long, char const*, char const* const*, unsigned long, opxy::platform::stock_browser::Callbacks)
+ .text          0x000000008d2de270       0x5c sdk/presets.o
+                0x000000008d2de270                sdk_preset_type
+
+.rodata         0x000000008d2de2cc      0xa50
+ *(.rodata .rodata.* .data.rel.ro .data.rel.ro.*)
+ .rodata.str1.4
+                0x000000008d2de2cc       0x24 fujara/voice.o
+ .rodata        0x000000008d2de2f0       0xa4 fujara/voice.o
+                0x000000008d2de2f0                fujara_vtable
+                0x000000008d2de32c                fujara_name
+ .rodata        0x000000008d2de394       0xd8 fujara/display.o
+ .rodata        0x000000008d2de46c       0xa4 fujara/screen.o
+                0x000000008d2de484                fujara_screen_vtable
+                0x000000008d2de49c                fujara_screen_asset
+ .rodata.str1.4
+                0x000000008d2de510      0x1e0 fujara/screen.o
+ .rodata        0x000000008d2de6f0       0x2c fujara/registration.o
+ .rodata        0x000000008d2de71c       0x40 sdk/registration_stock.o
+ .rodata.kit_startup_label
+                0x000000008d2de75c       0x14 sdk/startup_label.o
+                0x000000008d2de75c                kit_startup_label_text
+ .rodata        0x000000008d2de770      0x22c sdk/benchmark.o
+ .rodata.str1.4
+                0x000000008d2de99c        0x8 sdk/benchmark.o
+ .rodata.str1.4
+                0x000000008d2de9a4       0x40 sdk/synth_controls.o
+ .rodata        0x000000008d2de9e4       0x20 sdk/synth_controls.o
+ .rodata.str1.4
+                0x000000008d2dea04        0x4 sdk/synth_control_table.o
+ .rodata        0x000000008d2dea08       0x78 sdk/synth_control_table.o
+                0x000000008d2dea08                sdk_lfo_machine_count
+                0x000000008d2dea0c                sdk_lfo_machines
+                0x000000008d2dea34                sdk_synth_control_count
+                0x000000008d2dea38                sdk_synth_controls
+ .rodata.str1.4
+                0x000000008d2dea80      0x234 sdk/project_companion.o
+ .rodata.str1.4
+                0x000000008d2decb4        0x8 sdk/project_companion_table.o
+ .rodata        0x000000008d2decbc       0x20 sdk/project_companion_table.o
+                0x000000008d2decbc                sdk_companion_machines
+ .rodata        0x000000008d2decdc       0x40 sdk/stock_browser.o
+
+.data           0x000000008d2ded1c        0x4
+ *(.data .data.* .sdata .sdata.*)
+ .data          0x000000008d2ded1c        0x4 fujara/voice.o
+ .data          0x000000008d2ded20        0x0 fujara/display.o
+ .data          0x000000008d2ded20        0x0 fujara/screen.o
+ .data          0x000000008d2ded20        0x0 fujara/registration.o
+ .data          0x000000008d2ded20        0x0 sdk/divide.o
+ .data          0x000000008d2ded20        0x0 sdk/memory.o
+ .data          0x000000008d2ded20        0x0 sdk/registration.o
+ .data          0x000000008d2ded20        0x0 sdk/registration_stock.o
+ .data          0x000000008d2ded20        0x0 sdk/startup.o
+ .data          0x000000008d2ded20        0x0 sdk/startup_exit.o
+ .data          0x000000008d2ded20        0x0 sdk/startup_label.o
+ .data          0x000000008d2ded20        0x0 sdk/benchmark.o
+ .data          0x000000008d2ded20        0x0 sdk/benchmark_clock.o
+ .data          0x000000008d2ded20        0x0 sdk/voice_clock.o
+ .data          0x000000008d2ded20        0x0 sdk/hook.o
+ .data          0x000000008d2ded20        0x0 sdk/screen_order.o
+ .data          0x000000008d2ded20        0x0 sdk/screen_hooks.o
+ .data          0x000000008d2ded20        0x0 sdk/synth_controls.o
+ .data          0x000000008d2ded20        0x0 sdk/synth_control_table.o
+ .data          0x000000008d2ded20        0x0 sdk/note_activity.o
+ .data          0x000000008d2ded20        0x0 sdk/project_companion.o
+ .data          0x000000008d2ded20        0x0 sdk/project_companion_table.o
+ .data          0x000000008d2ded20        0x0 sdk/profiling.o
+ .data          0x000000008d2ded20        0x0 sdk/lfo.o
+ .data          0x000000008d2ded20        0x0 sdk/lfo_stock.o
+ .data          0x000000008d2ded20        0x0 sdk/lfo_hooks.o
+ .data          0x000000008d2ded20        0x0 sdk/stock_browser.o
+ .data          0x000000008d2ded20        0x0 sdk/presets.o
+                0x000000008d2ded20                __extensions_initialized_end = .
+
+.bss            0x000000008d2ded20     0xa184
+                0x000000008d2ded20                __extensions_bss_start = .
+ *(.bss .bss.* .sbss .sbss.* COMMON)
+ .bss           0x000000008d2ded20     0x57f8 fujara/voice.o
+ .bss           0x000000008d2e4518        0x0 fujara/display.o
+ .bss           0x000000008d2e4518      0x4b4 fujara/screen.o
+                0x000000008d2e4518                fujara_screen_state
+ .bss           0x000000008d2e49cc        0x0 fujara/registration.o
+ .bss           0x000000008d2e49cc        0x0 sdk/divide.o
+ .bss           0x000000008d2e49cc        0x0 sdk/memory.o
+ .bss           0x000000008d2e49cc        0x0 sdk/registration.o
+ .bss           0x000000008d2e49cc        0x0 sdk/registration_stock.o
+ .bss           0x000000008d2e49cc        0x0 sdk/startup.o
+ .bss           0x000000008d2e49cc        0x0 sdk/startup_exit.o
+ .bss           0x000000008d2e49cc        0x0 sdk/startup_label.o
+ .bss           0x000000008d2e49cc       0x28 sdk/benchmark.o
+                0x000000008d2e49cc                sdk_benchmark_engine
+                0x000000008d2e49d0                sdk_benchmark_parameters
+ .bss           0x000000008d2e49f4        0x0 sdk/benchmark_clock.o
+ .bss           0x000000008d2e49f4        0x0 sdk/voice_clock.o
+ .bss           0x000000008d2e49f4        0x0 sdk/hook.o
+ .bss           0x000000008d2e49f4       0x14 sdk/screen_order.o
+ .bss           0x000000008d2e4a08        0x0 sdk/screen_hooks.o
+ .bss           0x000000008d2e4a08       0x64 sdk/synth_controls.o
+ .bss           0x000000008d2e4a6c        0x0 sdk/synth_control_table.o
+ .bss           0x000000008d2e4a6c       0x20 sdk/note_activity.o
+ .bss           0x000000008d2e4a8c     0x4414 sdk/project_companion.o
+ .bss           0x000000008d2e8ea0        0x0 sdk/project_companion_table.o
+ .bss           0x000000008d2e8ea0        0x0 sdk/profiling.o
+ .bss           0x000000008d2e8ea0        0x0 sdk/lfo.o
+ .bss           0x000000008d2e8ea0        0x0 sdk/lfo_stock.o
+ .bss           0x000000008d2e8ea0        0x0 sdk/lfo_hooks.o
+ .bss           0x000000008d2e8ea0        0x4 sdk/stock_browser.o
+ .bss           0x000000008d2e8ea4        0x0 sdk/presets.o
+                0x000000008d2e8ea4                __extensions_bss_end = .
+                0x000000008d2e8ea4                __extensions_module_end = .
+
+.init_array     0x000000008d2e8ea4        0x0
+ *(.init_array .init_array.* .ctors .ctors.*)
+
+.fini_array     0x000000008d2e8ea4        0x0
+ *(.fini_array .fini_array.* .dtors .dtors.*)
+
+/DISCARD/
+ *(.comment .note* .eh_frame .eh_frame_hdr .gcc_except_table)
+                0x0000000000000001                ASSERT ((SIZEOF (.init_array) == 0x0), Static constructors are not run by the stock loader)
+                0x0000000000000001                ASSERT ((SIZEOF (.fini_array) == 0x0), Static destructors are not supported)
+                0x0000000000000001                ASSERT ((__extensions_reserved_end == __stock_effect_records), Module must end where the relocated tables begin)
+                0x0000000000000001                ASSERT (((__stock_effect_records + 0xbd0) == __stock_engine_records), Effect records overlap engine records)
+                0x0000000000000001                ASSERT (((__stock_engine_records + 0x3000) == __stock_screen_slots), Engine records overlap screen slots)
+                0x0000000000000001                ASSERT (((__stock_screen_slots + 0x400) <= 0x8d4d0380), Relocated tables exceed the reservation)
+                0x0000000000000001                ASSERT ((__extensions_module_end <= __extensions_reserved_end), Module overlaps the relocated tables)
+                0x000000008d5bd928                stock_catalog_insert = 0x8d5bd928
+                0x000000008d5c3eac                stock_gui_role = 0x8d5c3eac
+                0x000000008d5b79c6                stock_sample_classify_tail = 0x8d5b79c6
+                0x000000008d589214                stock_sample_key_tail = 0x8d589214
+                0x00000000000000ea                fujara_engine_id = 0xea
+                0x00000000000000ae                fujara_page_id = 0xae
+LOAD fujara/voice.o
+LOAD fujara/display.o
+LOAD fujara/screen.o
+LOAD fujara/registration.o
+LOAD sdk/divide.o
+LOAD sdk/memory.o
+LOAD sdk/registration.o
+LOAD sdk/registration_stock.o
+LOAD sdk/startup.o
+LOAD sdk/startup_exit.o
+LOAD sdk/startup_label.o
+LOAD sdk/benchmark.o
+LOAD sdk/benchmark_clock.o
+LOAD sdk/voice_clock.o
+LOAD sdk/hook.o
+LOAD sdk/screen_order.o
+LOAD sdk/screen_hooks.o
+LOAD sdk/synth_controls.o
+LOAD sdk/synth_control_table.o
+LOAD sdk/note_activity.o
+LOAD sdk/project_companion.o
+LOAD sdk/project_companion_table.o
+LOAD sdk/profiling.o
+LOAD sdk/lfo.o
+LOAD sdk/lfo_stock.o
+LOAD sdk/lfo_hooks.o
+LOAD sdk/stock_browser.o
+LOAD sdk/presets.o
+OUTPUT(module.elf elf32-bfin)

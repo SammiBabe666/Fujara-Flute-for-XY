@@ -1,0 +1,3 @@
+display_binding.cpp:23:17:void fujara_display_reset(opxy::binding::DisplayState*, opxy::binding::Frame*)	0	static
+display_binding.cpp:27:17:void fujara_display_render(opxy::binding::DisplayState*, const opxy::draw::Input*, opxy::binding::Frame*)	108	static
+display_binding.cpp:31:21:unsigned int fujara_display_validate(const Frame*)	0	static

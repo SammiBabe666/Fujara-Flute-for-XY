@@ -1,0 +1,3 @@
+benchmark.cpp:102:7:void* opxy::benchmark::allocate(opxy::u32)	0	static
+benchmark.cpp:110:6:void opxy::benchmark::release(void*)	0	static
+benchmark.cpp:129:6:void sdk_benchmark_run()	92	static
