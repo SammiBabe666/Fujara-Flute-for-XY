@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "sdk": "1.6",
+  "kind": "synth",
+  "description": "Fujara: a Slovak overtone flute. A breath-blown jet sounds a resonant wooden bore; overblow it and the whistle climbs the harmonic series.",
+  "icon": "M4 40L42 8 M7 44L40 16 M10 33L22 23 M33 18L36 15",
+  "presetDefaults": {
+    "amp": {
+      "attack": 1800,
+      "decay": 8192,
+      "release": 9000,
+      "sustain": 32767
+    }
+  },
+  "presets": "presets"
+}

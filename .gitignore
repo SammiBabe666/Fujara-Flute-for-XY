@@ -1,0 +1,16 @@
+# Generated outputs belong outside the machine repository.
+__pycache__/
+.venv/
+node_modules/
+*.pyc
+*.o
+*.exe
+*.wasm
+*.ldr
+*.tfw
+.DS_Store
+# Demo and artwork scratch (production/ writes these outside the repository by default).
+*.wav
+*.webm
+fujara-demo-work/
+fujara-assets-work/

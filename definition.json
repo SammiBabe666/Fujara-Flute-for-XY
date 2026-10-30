@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "id": "fujara",
+  "name": "Fujara",
+  "parameters": [
+    {
+      "id": "breath",
+      "label": "Breath",
+      "default": 0.45,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "body",
+      "label": "Body",
+      "default": 0.65,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "overtones",
+      "label": "Overtone",
+      "default": 0.35,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "air",
+      "label": "Air",
+      "default": 0.4,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    }
+  ],
+  "presets": {
+    "Mountain Breath": {
+      "breath": 0.45,
+      "body": 0.65,
+      "overtones": 0.35,
+      "air": 0.4
+    },
+    "Overtone Wraith": {
+      "breath": 0.55,
+      "body": 0.35,
+      "overtones": 0.9,
+      "air": 0.3
+    },
+    "Mourning Wood": {
+      "breath": 0.22,
+      "body": 0.85,
+      "overtones": 0.12,
+      "air": 0.25
+    },
+    "High Pasture": {
+      "breath": 0.4,
+      "body": 0.2,
+      "overtones": 0.62,
+      "air": 0.85
+    },
+    "Storm Calling": {
+      "breath": 0.95,
+      "body": 0.55,
+      "overtones": 0.78,
+      "air": 0.45
+    },
+    "The Hollow Saint": {
+      "breath": 0.3,
+      "body": 1.0,
+      "overtones": 0.62,
+      "air": 0.55
+    }
+  },
+  "resources": {
+    "voiceBytes": 2144,
+    "voiceAlignment": 4,
+    "voiceCapacity": 8,
+    "sharedBytes": 0,
+    "outputPeakQ31": 1073741824,
+    "display": {
+      "stateBytes": 40,
+      "stateAlignment": 4,
+      "paths": 1,
+      "points": 64,
+      "nodes": 10,
+      "texts": 0,
+      "palette": 16
+    }
+  }
+}
