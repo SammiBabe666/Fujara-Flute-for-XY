@@ -22,6 +22,9 @@ stock files or firmware packages.
 
 ## Device build (needs your computer)
 
+On an Apple-silicon Mac, [tools/mac/](tools/mac/README.md) does steps 1 to 3
+and the CPU readout below with dialogs, no typing. Otherwise:
+
 1. Get the pinned tools (Windows x86_64 or Apple-silicon macOS; on Linux,
    build them with `tools/gcc/build-linux.sh` in the SDK's container):
 

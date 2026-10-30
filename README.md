@@ -142,7 +142,8 @@ The aim is at most 15,000 per voice block, and the catalog recommends at most
 on an OP-XY.** Host estimates and instruction counts are not device timings;
 the hardware readout from the SDK's
 [profiling guide](https://github.com/etcetc000/open-xy/blob/staging/docs/profiling.md)
-is pending. See the [release checklist](RELEASE_CHECKLIST.md).
+is pending. See the [release checklist](RELEASE_CHECKLIST.md); on a Mac,
+[tools/mac/](tools/mac/README.md) runs it without typing commands.
 
 ## Build, preview and test
 
@@ -190,6 +191,7 @@ and a native Blackfin compile with the SDK's pinned tools.
 | [production/](production/README.md) | Scripts that make the artwork, the device screenshot and the demo video |
 | [assets/](assets) | Hero artwork (PNG and JPEG), device screenshot, thumbnail, demo video and poster |
 | [tools/blackfin_loops.py](tools/blackfin_loops.py) | Counts instructions in compiled Blackfin loops (a development aid) |
+| [tools/mac/](tools/mac/README.md) | A double-click Mac script that builds the profiling firmware and measures CPU on your OP-XY |
 | [AUDIT.md](AUDIT.md), [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md), [CHANGELOG.md](CHANGELOG.md) | Design and verification record, release steps, history |
 
 ## Licence
