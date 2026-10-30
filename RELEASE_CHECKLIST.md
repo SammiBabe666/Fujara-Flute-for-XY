@@ -18,7 +18,7 @@ stock files or firmware packages.
 - [x] Assets rebuilt from source (`production/make_assets.py`, `production/make_demo.py`)
 - [x] Demo MP4 checked: H.264 1920 × 1080, AAC, 2:47, every preset segment checked
 - [x] AUDIT.md and README match the measured numbers
-- [ ] CI green on the pushed commit, including the native Blackfin compile
+- [x] CI green on the pushed commit, including the native Blackfin compile with the SDK's pinned tools (run 41002412844, commit 5bdccf4)
 
 ## Device build (needs your computer)
 

@@ -196,7 +196,9 @@ preview's own audio was verified but not recorded into the film.
 - A firmware build with the SDK's pinned tools and the owner's stock OS (not
   possible in the build environment: the SDK ships no Linux toolchain download,
   and its container recipe needs Docker and snapshot.debian.org). CI's
-  `blackfin` job compiles the machine natively with the pinned Windows tools.
+  `blackfin` job does compile and link the machine natively with the SDK's
+  hash-pinned Windows tools (`sdk.py compile`, no stock files): it passed on
+  commit `5bdccf4` (Actions run 41002412844).
 - Installation, audition on an OP-XY, and the hardware CPU sweep readout
   ([profiling guide](https://github.com/etcetc000/open-xy/blob/staging/docs/profiling.md)).
 - Engine and screen numbers come from the firmware's layout at build time.
